@@ -25,7 +25,7 @@ const WardrobeScreen = ({ match }) => {
     dispatch(removeFromWardrobe(id))
   }
   const BITLY_URL = "https://api-ssl.bitly.com/v4/shorten"
-  const BITLY_API_TOKEN = ""
+  const BITLY_API_TOKEN = "46b1dcefbe93fd65e19f55f11436ae27703e4a65"
 
   async function shortenUrl() {
     const res = await fetch(BITLY_URL, {
