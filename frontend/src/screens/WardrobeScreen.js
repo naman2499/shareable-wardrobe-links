@@ -24,8 +24,30 @@ const WardrobeScreen = ({ match }) => {
   const removeFromWardrobeHandler = (id) => {
     dispatch(removeFromWardrobe(id))
   }
+  const BITLY_URL = "https://api-ssl.bitly.com/v4/shorten"
+  const BITLY_API_TOKEN = ""
+
+  const shortenUrl = async () => {
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json')
+    myHeaders.append('Authorization', BITLY_API_TOKEN)
+
+    let currentUrl = window.location.href;
+    let res = await fetch(BITLY_URL, {
+      method: 'POST',
+      body: {
+        "long_url": currentUrl,
+
+      }
+    })
+    console.log(res)
+    let shortenedUrl = res.body["link"]
+    return shortenedUrl
+  }
+  
   const clickHandler = () => {
-    navigator.clipboard.writeText(window.location.href);
+    let smallUrl = shortenUrl() || window.location.href
+    navigator.clipboard.writeText(smallUrl)
     setText('Copied Link!')
     setColor('success')
     setTimeout(() => {
