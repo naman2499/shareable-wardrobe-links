@@ -45,7 +45,7 @@ const postCounts = asyncHandler(async (req, res) => {
       timestamp: new Date().toISOString()
   })
   fs.writeFileSync("counts.json", JSON.stringify(data))
-  res.json({status: 'ok'})
+  res.json({status: 'ok', length: data.length})
 })
 
 app.use(express.json())

@@ -16,6 +16,15 @@ const WardrobeScreen = ({ match }) => {
   const { wardrobeItems } = wardrobe
 
   useEffect(() => {
+    const baseUrl = window.location.protocol + '//' + window.location.host;
+    fetch(`${baseUrl}/api/counter`, {
+      method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+  }, [])
+
+  useEffect(() => {
     if (productId) {
       dispatch(addToWardrobe(productId))
     }
@@ -39,7 +48,7 @@ const WardrobeScreen = ({ match }) => {
     const data = await res.json()
     console.log(data)
     navigator.clipboard.writeText(data['link'])
-    return 
+    return
   }
 
   const clickHandler = () => {
