@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { Line } from "react-chartjs-2";
+import { Link } from 'react-router-dom'
+
 
 const HomeScreen = ({ match }) => {
 
@@ -23,19 +25,18 @@ const HomeScreen = ({ match }) => {
     ]
   })
 
-  useEffect(async () => {
-    const res = await fetch("/api/counter")
-    const graph_data = await res.json()
-
-    console.log(graph_data)
-    let totalCount = 0
-    for (const date in graph_data) {
-      setLabels(l => [...l, date])
-      const c = graph_data[date]
-      setData(d => [...d, graph_data[date]])
-      totalCount += c
-    }
-    setCount(totalCount)
+  useEffect(() => {
+    fetch("/api/counter").then(res => res.json()).then(graph_data => {
+      console.log(graph_data)
+      let totalCount = 0
+      for (const date in graph_data) {
+        setLabels(l => [...l, date])
+        const c = graph_data[date]
+        setData(d => [...d, graph_data[date]])
+        totalCount += c
+      }
+      setCount(totalCount)
+    })
   }, [])
 
   useEffect(() => {
@@ -81,7 +82,7 @@ const HomeScreen = ({ match }) => {
         type='button'
         disabled={true}
       >
-        <h3 style={{color:'white'}}>Visitors: {count}</h3>
+        <h3 style={{ color: 'white' }}>Visitors: {count}</h3>
       </Button>
       <div>
         <Line
