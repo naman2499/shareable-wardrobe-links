@@ -106,7 +106,7 @@ const WardrobeScreen = ({ match }) => {
             onClick={clickHandler}
           > {text}</Button>
 
-          <Link to='/dashboard/481a1f86-1e9b-411a-aa9f-4ad29f3f0986'>
+          <Link to={`/dashboard/${wardrobeName}`}>
             <Button
               type='outline'
               variant='light'
