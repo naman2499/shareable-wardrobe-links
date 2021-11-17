@@ -35,15 +35,22 @@ const getCounts = asyncHandler(async (req, res) => {
 })
 
 const postCounts = asyncHandler(async (req, res) => {
-  let data = []
+  let data = {}
   try {
       data = JSON.parse(fs.readFileSync('counts.json'));
   }catch(e) {
   }
-  data.push({
-      wardrobe: "",
-      timestamp: new Date().toISOString()
-  })
+  const date = new Date()
+  var month = date.getMonth() + 1; //months from 1-12
+  var day = date.getDate();
+  var year = date.getFullYear();
+
+  const d = day + "/" + month + "/" + year;
+  const index = d + " " + date.getHours().toString() + ":00"
+  if (data[index] == undefined) {
+    data[index] = 0
+  }
+  data[index] += 1
   fs.writeFileSync("counts.json", JSON.stringify(data))
   res.json({status: 'ok', length: data.length})
 })
