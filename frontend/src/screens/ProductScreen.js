@@ -46,8 +46,8 @@ const ProductScreen = ({ history, match }) => {
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`)
   }
-  const addToWardrobeHandler = () => {
-    history.push(`/wardrobe/${match.params.id}`)
+  const addToWardrobeHandler = (wardrobeName) =>() => {
+    history.push(`/wardrobe/${wardrobeName}/${match.params.id}`)
   }
 
   const submitHandler = (e) => {
@@ -153,9 +153,9 @@ const ProductScreen = ({ history, match }) => {
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu>
-                        <Dropdown.Item onClick={addToWardrobeHandler}> Classic </Dropdown.Item>
-                        <Dropdown.Item onClick={addToWardrobeHandler}> Hiking Trip</Dropdown.Item>
-                        <Dropdown.Item onClick={addToWardrobeHandler}> Beach Photo</Dropdown.Item>
+                        <Dropdown.Item onClick={addToWardrobeHandler('Classic')}> Classic </Dropdown.Item>
+                        <Dropdown.Item onClick={addToWardrobeHandler('Hiking Trip')}> Hiking Trip</Dropdown.Item>
+                        <Dropdown.Item onClick={addToWardrobeHandler('Beach Photo')}> Beach Photo</Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
                   </ListGroup.Item>
